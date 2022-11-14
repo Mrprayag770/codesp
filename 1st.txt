@@ -1,0 +1,226 @@
+Code:
+
+#!/bin/sh
+
+a=50
+b=10
+
+val=`expr $a + $b`
+echo "$a + $b : $val"
+
+val=`expr $a - $b`
+echo "$a - $b : $val"
+
+val=`expr $a \* $b`
+echo "$a * $b : $val"
+
+val=`expr $a / $b`
+echo "$b / $a : $val"
+
+val=`expr $b % $a`
+echo "$b % $a : $val"
+
+
+
+Output:
+//////////////
+grep
+
+
+
+[08:04, 14/11/2022] Prayag🥳🔥: #!/bin/sh
+
+a=0
+
+while [ $a -lt 10 ]
+do
+   echo $a
+   a=`expr $a + 1`
+done
+[08:04, 14/11/2022] Prayag🥳🔥: #!/bin/sh
+
+for var in 0 1 2 3 4 5 6 7 8 9
+do
+   echo $var
+done
+
+
+
+
+
+
+#!/bin/bash
+echo "Enter a number"
+read n
+if [ $n -lt 100 ]; then
+printf "$n is less than 100\n"
+fi
+
+Bash file.sh
+
+#!/bin/bash
+echo "Enter username"
+read un
+echo "Enter password"
+read pw
+if [[ "$un" == "admin" && "$pw" == "superuser" ]]; then
+echo "Login Successful."
+fi
+
+
+
+#!/bin/bash
+echo "Enter your name"
+read name
+if [[ $name == "Neha" || $name == 'Nil' ]]; then
+echo "You have won the prize"
+else
+echo "Try for the next time"
+fi
+
+
+
+#!/bin/bash
+echo "Enter the sales amount"
+read amount
+echo "Enter the time duration"
+read duration
+ 
+if (( $amount >= 10000 )); then
+if (( $duration <= 7 )); then
+output="You will get 20% bonus"
+else
+output="You will get 15% bonus"
+fi
+else
+if (( $duration <= 10 )); then
+output="You will get 10% bonus"
+else
+output="You will get 5% bonus"
+fi
+fi
+echo "$output"
+
+Output:
+
+  
+
+
+/////// Case 
+#!/bin/bash
+N1=$1
+op=$2
+N2=$3
+case $op in
+'+')
+((Result=$N1+$N2)) ;;
+'-')
+((Result=$N1-$N2)) ;;
+'x')
+((Result=$N1*$N2)) ;;
+'/')
+((Result=$N1/$N2)) ;;
+*)
+echo "Wrong numbers of arguments"
+exit 0 ;;
+esac
+echo "$N1 $op $N2 = $Result"
+
+
+$grep -i "UNix" geekfile.txt search 
+$grep -c "unix" geekfile.txt no. Of matches
+$ grep -w "unix" geekfile.txt whole word
+grep -n "unix" geekfile.txt line no. 
+
+$sed 's/unix/linux/' geekfile.txt unix rep with liniux 
+
+$sed '3 s/unix/linux/' geekfile.txt 
+
+Output:
+
+$ sed '5d' filename.txt 
+Or n or 3,4d 
+
+Test
+
+#!/bin/bash # Example to check if two numbers are equal # or not # first number a=20 # second number b=20 # using test command to check if numbers # are equal if test "$a" -eq "$b" then echo "a is equal to b" else echo "a is not equal to b" fi
+
+/////////////
+
+
+opt=1
+while [ "$opt" -lt 7 ]
+do
+
+	echo -e "Choose one of the Following\n1. Create a New Address Book\n2. View Records\n3. Insert new Record\n4. Delete a Record\n5. Modify a Record\n6. Exit"
+	# echo -e, enables special features of echo to use \n \t \b etc.
+	read opt
+	case $opt in
+
+	1)
+		echo "Enter filename"
+		read fileName
+		if [ -e $fileName ] ; then	# -e to check if file exists, if exits remove the file
+			rm $fileName
+		fi
+		cont=1
+		echo  "NAME\t	NUMBER\t\tADDRESS\n===============================\n" | cat >> $fileName
+		while [ "$cont" -gt 0 ]
+		do
+			echo "Enter Name:"
+			read name
+			echo "Enter Phone Number of $name"
+			read number
+			echo "Enter Address of $name"
+			read address
+			echo "$name\\t$number\\t$address" | cat >> $fileName
+			echo "Enter 0 to Stop, 1 to Enter next"
+			read cont
+		done
+		;;
+
+	2)
+		cat $fileName
+		;;
+	3)
+		echo "\nEnter Name"
+		read name
+		echo "Enter Phone Number of $name"
+		read number
+		echo "Enter Address of $name"
+		read address
+		echo "$name\t$number\t\t$address" | cat >> $fileName
+		;;
+	4)
+		echo "Enter address name"
+		read name
+		grep -v $name
+		;;
+		
+	5)
+		echo "Delete record\nEnter Name/Phone Number"
+		read pattern
+		temp="temp"
+		grep -v $pattern $fileName | cat >> $temp 
+		rm $fileName
+		cat $temp | cat >> $fileName
+		rm $temp
+		;;
+	6)
+		echo "Modify record\nEnter Name/Phone Number"
+		read pattern
+		temp="temp"
+		grep -v $pattern $fileName | cat >> $temp
+		rm $fileName
+		cat $temp | cat >> $fileName
+		rm $temp
+		echo "Enter Name"
+		read name
+		echo "Enter Phone Number of $name"
+		read number
+		echo "Enter Address of $name"
+		read address
+		echo -e "$name\t$number\t$address" | cat >> $fileName
+		;;
+	esac
+done
